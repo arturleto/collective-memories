@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Flyer — Collective Memories</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #0a0a0a;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 32px;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ─── FLYER CARD ─────────────────────────────── */
+.flyer {
+  width: 99mm;
+  height: 210mm;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 3mm;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+}
+
+/* ─── BACKGROUND ─────────────────────────────── */
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,180,255,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 85% 85%, rgba(120,80,255,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,120,200,0.06) 0%, transparent 60%),
+    linear-gradient(170deg, #030c1a 0%, #050f20 35%, #040c1c 65%, #020810 100%);
+}
+
+/* frosted glass orbs */
+.bg::before {
+  content: '';
+  position: absolute;
+  width: 60mm; height: 60mm;
+  top: -15mm; left: -15mm;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,255,0.06), transparent 70%);
+  filter: blur(12px);
+}
+.bg::after {
+  content: '';
+  position: absolute;
+  width: 80mm; height: 80mm;
+  bottom: -20mm; right: -20mm;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(110,60,255,0.07), transparent 70%);
+  filter: blur(16px);
+}
+
+/* grid texture */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 8mm 8mm;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, transparent 75%);
+}
+
+/* floating dust particles — CSS only */
+.dust {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle 0.4mm at 20% 30%, rgba(0,212,255,0.5), transparent),
+    radial-gradient(circle 0.3mm at 75% 15%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(circle 0.5mm at 45% 70%, rgba(0,180,255,0.35), transparent),
+    radial-gradient(circle 0.3mm at 88% 55%, rgba(150,100,255,0.4), transparent),
+    radial-gradient(circle 0.4mm at 10% 80%, rgba(0,212,255,0.3), transparent),
+    radial-gradient(circle 0.3mm at 60% 90%, rgba(255,255,255,0.25), transparent),
+    radial-gradient(circle 0.4mm at 30% 5%,  rgba(0,180,255,0.3), transparent),
+    radial-gradient(circle 0.3mm at 95% 40%, rgba(150,100,255,0.35), transparent);
+}
+
+/* diagonal light sweep */
+.sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    transparent 0%,
+    rgba(0,212,255,0.03) 30%,
+    rgba(255,255,255,0.02) 50%,
+    rgba(120,80,255,0.03) 70%,
+    transparent 100%
+  );
+}
+
+/* ─── SIDE A: 3 LANG BLOCKS ───────────────────── */
+.side-a {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.block {
+  flex: 1;
+  padding: 3.2mm 5mm 2.8mm;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* divider */
+.block:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 0.35mm;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,212,255,0.4) 20%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(120,80,255,0.4) 80%,
+    transparent 100%
+  );
+}
+
+/* flag + lang name */
+.lang-tag {
+  display: flex;
+  align-items: center;
+  gap: 1.5mm;
+  margin-bottom: 2.2mm;
+}
+.flag { font-size: 3.5mm; line-height: 1; }
+.lang-name {
+  font-size: 2mm;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── BIG HEADLINE ── */
+.q-main {
+  font-size: 4.5mm;
+  font-weight: 900;
+  line-height: 1.08;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.5mm;
+  text-transform: uppercase;
+}
+.q-sub {
+  font-size: 3.4mm;
+  font-weight: 800;
+  line-height: 1.12;
+  color: rgba(255,255,255,0.88);
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+
+/* ── AMOUNT ── */
+.amount {
+  font-size: 3.1mm;
+  font-weight: 900;
+  color: #00D4FF;
+  letter-spacing: -0.2px;
+}
+
+/* ── BODY ── */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+}
+.line {
+  font-size: 2.5mm;
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.45;
+}
+.line-bold {
+  font-size: 2.5mm;
+  font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  line-height: 1.45;
+}
+.underline {
+  text-decoration: underline;
+  text-decoration-color: rgba(0,212,255,0.65);
+  text-underline-offset: 0.5mm;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+.highlight-white {
+  color: #FFFFFF;
+  font-weight: 800;
+}
+.equals {
+  color: #00D4FF;
+  font-weight: 900;
+}
+
+/* ── CTA BOTTOM ── */
+.cta-bottom {
+  margin-top: 2mm;
+  font-size: 2.2mm;
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.2px;
+}
+
+/* ─── SIDE B: QR ──────────────────────────────── */
+.side-b {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* top zone — QR */
+.b-top {
+  height: 118mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4mm;
+  padding: 0 6mm;
+  border-bottom: 0.3mm solid rgba(255,255,255,0.07);
+}
+
+.qr-wrap {
+  background: #ffffff;
+  border-radius: 4mm;
+  padding: 4mm;
+  box-shadow:
+    0 0 0 0.8mm rgba(0,212,255,0.28),
+    0 8mm 24mm rgba(0,0,0,0.55);
+}
+.qr-wrap img {
+  display: block;
+  width: 66mm;
+  height: 66mm;
+}
+
+.qr-url {
+  font-size: 2.6mm;
+  font-weight: 600;
+  color: rgba(255,255,255,0.42);
+  letter-spacing: 0.4px;
+}
+
+/* bottom zone — 3 langs */
+.b-langs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5.5mm 5mm;
+}
+
+.b-lang {
+  display: flex;
+  align-items: center;
+  gap: 4.5mm;
+  padding: 7mm 0;
+}
+
+.b-flag {
+  font-size: 8.5mm;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.b-phrase {
+  font-size: 5mm;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.22;
+}
+
+.b-divider {
+  height: 0.3mm;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,212,255,0.38) 20%,
+    rgba(255,255,255,0.13) 50%,
+    rgba(120,80,255,0.38) 80%,
+    transparent 100%
+  );
+}
+
+/* ─── PRINT ──────────────────────────────────── */
+@media print {
+  @page { size: 99mm 210mm; margin: 0; }
+  body { background: none; padding: 0; gap: 0; }
+  .flyer { border-radius: 0; box-shadow: none; page-break-after: always; }
+  .label { display: none; }
+}
+
+/* screen labels */
+.label {
+  color: rgba(255,255,255,0.25);
+  font-size: 11px;
+  text-align: center;
+  width: 99mm;
+  margin-top: -24px;
+  font-family: monospace;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════
+     СТОРОНА A — ТЕКСТ
+════════════════════════════ -->
+<div class="flyer">
+  <div class="bg"></div>
+  <div class="grid-lines"></div>
+  <div class="dust"></div>
+  <div class="sweep"></div>
+
+  <div class="side-a">
+
+    <!-- ── 🇮🇩 BAHASA INDONESIA ── -->
+    <div class="block">
+      <div class="lang-tag">
+        <span class="flag">🇮🇩</span>
+        <span class="lang-name">Bahasa Indonesia</span>
+      </div>
+      <div class="q-main">Tahukah kamu ada<br>pekerjaan seperti ini —</div>
+      <div class="q-sub">cukup foto kehidupan<br>di sekitarmu pakai HP?</div>
+      <div class="body">
+        <div class="line"><span class="amount">$100–1000 per bulan</span> — serius.<br>Aku bisa buktikan, hubungi aku.</div>
+        <div class="line"><span class="underline">Tanpa modal. Tidak perlu beli apa-apa.</span><br>Hanya butuh HP berkamera.</div>
+        <div class="line">Ada aplikasi yang belum banyak orang tahu.<br>Di dalamnya foto sederhana seperti stories — dibayar.</div>
+        <div class="line"><span class="highlight-white">100.000+</span> pengguna di seluruh dunia.</div>
+      </div>
+      <div class="cta-bottom">Balik &amp; scan QR — aku tunjukkan cara kerjanya.</div>
+    </div>
+
+    <!-- ── 🇬🇧 ENGLISH ── -->
+    <div class="block">
+      <div class="lang-tag">
+        <span class="flag">🇬🇧</span>
+        <span class="lang-name">English</span>
+      </div>
+      <div class="q-main">Did you know there's<br>a job like this —</div>
+      <div class="q-sub">just photograph the life<br>around you on your phone?</div>
+      <div class="body">
+        <div class="line"><span class="amount">$100–1000 per month</span> — for real.<br>I can prove it, just message me.</div>
+        <div class="line"><span class="underline">Zero investment. Nothing to buy.</span><br>All you need is a phone with a camera.</div>
+        <div class="line">There's an app not many people know about.<br>It pays for simple everyday shots — like stories.</div>
+        <div class="line"><span class="highlight-white">100,000+</span> users worldwide.</div>
+      </div>
+      <div class="cta-bottom">Flip &amp; scan the QR — I'll show you how it works.</div>
+    </div>
+
+    <!-- ── 🇷🇺 РУССКИЙ ── -->
+    <div class="block">
+      <div class="lang-tag">
+        <span class="flag">🇷🇺</span>
+        <span class="lang-name">Русский</span>
+      </div>
+      <div class="q-main">А ты знал, что<br>существует такая работа —</div>
+      <div class="q-sub">просто фотографировать<br>жизнь вокруг на телефон?</div>
+      <div class="body">
+        <div class="line"><span class="amount">$100–1000 в месяц</span> — без шуток.<br>Я могу доказать, просто напиши мне.</div>
+        <div class="line"><span class="underline">Без вложений. Ничего покупать не нужно.</span><br>Нужен только телефон с камерой.</div>
+        <div class="line">Есть приложение, о котором мало кто знает.<br>В нём платят за простые кадры — как обычные stories.</div>
+        <div class="line"><span class="highlight-white">100.000+</span> пользователей по всему миру.</div>
+      </div>
+      <div class="cta-bottom">Переверни и отсканируй QR — я покажу, как это работает.</div>
+    </div>
+
+  </div>
+</div>
+<div class="label">◀ СТОРОНА A (текст)</div>
+
+
+<!-- ════════════════════════════
+     СТОРОНА B — QR
+════════════════════════════ -->
+<div class="flyer">
+  <div class="bg"></div>
+  <div class="grid-lines"></div>
+  <div class="dust"></div>
+  <div class="sweep"></div>
+
+  <div class="side-b">
+
+    <!-- QR top zone -->
+    <div class="b-top">
+      <div class="qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://instagram.com/artur_leto_&color=030c1a&bgcolor=ffffff&qzone=1&margin=0" alt="QR">
+      </div>
+      <div class="qr-url">instagram.com/artur_leto_</div>
+    </div>
+
+    <!-- 3-lang phrases -->
+    <div class="b-langs">
+
+      <div class="b-lang">
+        <span class="b-flag">🇮🇩</span>
+        <span class="b-phrase">Pelajari cara menghasilkan uang<br>dari stories sehari-hari</span>
+      </div>
+
+      <div class="b-divider"></div>
+
+      <div class="b-lang">
+        <span class="b-flag">🇬🇧</span>
+        <span class="b-phrase">Learn how to earn money<br>from everyday stories</span>
+      </div>
+
+      <div class="b-divider"></div>
+
+      <div class="b-lang">
+        <span class="b-flag">🇷🇺</span>
+        <span class="b-phrase">Узнай как зарабатывать<br>на обычных сторис</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="label">СТОРОНА B (QR) ▶</div>
+
+</body>
+</html>
