@@ -1100,6 +1100,20 @@
       color: var(--emerald);
       font-weight: 500;
     }
+    .calc-note {
+      max-width: 720px;
+      margin: 28px auto 0;
+      padding: 14px 20px;
+      text-align: center;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--muted);
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.18);
+      border-radius: 12px;
+    }
+    .calc-note b { color: var(--text); font-weight: 600; }
+    .calc-note b:last-of-type { color: var(--emerald); }
     .calc-op {
       font-family: 'Geist Mono', monospace;
       font-size: 24px;
@@ -1649,7 +1663,32 @@
       border: 1px dashed var(--amber);
       color: var(--amber);
       border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      font: inherit;
+      font-family: 'Geist Mono', monospace;
+      transition: transform .15s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
     }
+    .onboard-card .promo-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(245, 181, 71, 0.25);
+    }
+    .onboard-card .promo-pill:active { transform: translateY(0); }
+    .onboard-card .promo-pill.copied {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(16, 185, 129, 0.10));
+      border-color: var(--emerald);
+      color: var(--emerald);
+    }
+    .copy-hint {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      opacity: 0.85;
+      transition: color .2s ease, opacity .2s ease;
+    }
+    .copy-hint.copied { color: var(--emerald); opacity: 1; }
     .onboard-card .dm-pill {
       display: inline-flex;
       align-items: center;
@@ -2626,13 +2665,49 @@
       border-radius: var(--radius);
       margin-bottom: 28px;
     }
+    button.invite-code,
+    button.promo-pill {
+      background: transparent;
+      border: 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    button.promo-pill {
+      background: linear-gradient(135deg, rgba(245, 181, 71, 0.15), rgba(244, 114, 182, 0.15));
+      border: 1px dashed var(--amber);
+    }
     .invite-code {
       font-family: 'Geist Mono', monospace;
       font-size: 22px;
       font-weight: 600;
       letter-spacing: 0.2em;
       color: var(--emerald);
+      cursor: pointer;
+      user-select: none;
+      padding: 4px 10px;
+      margin: -4px -10px;
+      border-radius: 8px;
+      transition: background .2s ease, transform .15s ease;
     }
+    .invite-code:hover {
+      background: rgba(16, 185, 129, 0.10);
+      transform: translateY(-1px);
+    }
+    .invite-code.copied {
+      background: rgba(16, 185, 129, 0.18);
+    }
+    .invite-hint {
+      display: block;
+      margin-top: 10px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.85;
+      transition: color .2s ease, opacity .2s ease;
+    }
+    .invite-hint.copied { color: var(--emerald); opacity: 1; }
     .invite-meta {
       display: flex;
       flex-direction: column;
@@ -3015,6 +3090,26 @@
     </div>
   </section>
 
+  <!-- ═══════════════ ZERO INVESTMENT ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="zero-card reveal">
+        <h2 class="zero-mega">
+          <em>Никаких</em><br>вложений.
+        </h2>
+        <p class="zero-sub">
+          Я хочу это подчеркнуть отдельно. Здесь <b>не нужно покупать стартовый пакет, платить за вход или вкладывать деньги.</b>
+          Тебе предлагают работу — ты фотографируешь, тебе платят. Это всё.
+        </p>
+        <div class="zero-pills">
+          <span class="zero-pill">✓ Вход бесплатный</span>
+          <span class="zero-pill">✓ Ничего покупать не нужно</span>
+          <span class="zero-pill">✓ Это работа, а не вложения</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════════ PSYCHO BLOCK ═══════════════ -->
   <section class="section">
     <div class="container">
@@ -3068,6 +3163,101 @@
             <li><span>📸</span> Фотографируешь — тебе платят</li>
             <li><span>🏆</span> Платформа работает на тебя</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ATTN MECHANIC ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" style="justify-content:center;"><span class="dot"></span>механика</div>
+        <h2 class="section-title">
+          Здесь вместо лайков — <em>деньги</em>
+        </h2>
+      </div>
+
+      <div class="attn-grid">
+        <div class="attn-card reveal">
+          <p class="attn-intro">Ты публикуешь фото.<br>Другие пользователи видят его — и вместо того, чтобы нажать ❤️…</p>
+          <div class="attn-vs">
+            <div class="attn-block">
+              <div class="icon">❤️</div>
+              <div class="label">Обычный лайк</div>
+              <div class="earn">Тебе: $0</div>
+            </div>
+            <div class="attn-arrow">→</div>
+            <div class="attn-block pos">
+              <div class="icon em">ATTN</div>
+              <div class="label">Токен внимания</div>
+              <div class="earn">Тебе: +$</div>
+            </div>
+          </div>
+          <div class="attn-note">
+            <b>ATTN</b> = Attention = Внимание.<br>
+            Каждый раз, когда кто-то обращает внимание на твоё фото — ты зарабатываешь.
+          </div>
+        </div>
+
+        <div class="attn-reasons reveal">
+          <h3>Почему люди вкладывают деньги в чужие фото?</h3>
+          <div class="reasons">
+            <div class="reason">
+              <div class="emo">📈</div>
+              <div>
+                <h4>Это инвестиция, а не благотворительность</h4>
+                <p>Поставил деньги на интересное фото → оно стало популярным → ты заработал. Как акции, только быстрее.</p>
+              </div>
+            </div>
+            <div class="reason">
+              <div class="emo">🎯</div>
+              <div>
+                <h4>Стейкер зарабатывает ~70% в месяц</h4>
+                <p>Вложил в хорошее фото — получил прибыль. Доходность — примерно 70% в месяц к сумме, которую ты уже заработал на своих фото. Заработать с одной ставки можно до 100%.</p>
+              </div>
+            </div>
+            <div class="reason">
+              <div class="emo">🤝</div>
+              <div>
+                <h4>Обе стороны выигрывают</h4>
+                <p>Ты получаешь 1% с каждого стейка на твоё фото как автор. Инвестор зарабатывает на твоём посте. Все в любом случае в плюсе.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ME ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-photo-wrap reveal">
+          <img src="assets/v2/artur_photo.jpg" alt="Артур Лето — с Бали">
+          <div class="about-badge">📍 Бали · Индонезия</div>
+        </div>
+        <div class="about-text reveal">
+          <div class="eyebrow"><span class="dot"></span>обо мне</div>
+          <h2>Привет, я <em>Артур</em> 👋</h2>
+          <p>
+            Я из России, живу на Бали. Пользуюсь <b>Collective Memories</b> сам с января 2026 —
+            и помогаю друзьям разобраться и подключиться.
+          </p>
+          <p>
+            Пиши мне в Direct — отвечу на <b>любом языке</b>: русский, английский, немного индонезийский.
+            Всё объясню, помогу с установкой, пришлю персональный видео-урок.
+          </p>
+          <div class="about-hint">
+            <b>P.S.</b> В моём Instagram в Highlights есть живые результаты друзей — кто сколько вывел.
+            Всё на русском, но если не говоришь по-русски — визуально всё равно понятно: суммы, скриншоты, чеки.
+            Загляни, если интересно.
+          </div>
+          <a href="https://instagram.com/artur_leto_" target="_blank" class="about-cta">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @artur_leto_ в Instagram
+          </a>
         </div>
       </div>
     </div>
@@ -3154,100 +3344,19 @@
             <div class="onboard-num">3</div>
             <h3>Имя, аватар и купон</h3>
             <p>Поставь своё имя, любую фотку на аватар. Введи купон:</p>
-            <div class="promo-pill">GQP92</div>
+            <button type="button" class="promo-pill js-copy" data-copy="GQP92" data-copy-label="Скопировано!" aria-label="Скопировать купон GQP92">GQP92</button>
+            <span class="copy-hint js-copy-hint">↑ нажми, чтобы скопировать</span>
           </div>
 
           <div class="onboard-card reveal">
             <div class="onboard-num">4</div>
             <h3>Напиши мне в Direct</h3>
-            <p>Скажи "я зарегистрировался" — и я пришлю тебе видео-урок, как всё настроить.</p>
+            <p>Скажи "я зарегистрировался" — и я пришлю тебе видео-обзор на приложение, чтобы ты понял, как правильно с ним обращаться и как максимально быстро начать зарабатывать.</p>
             <a href="https://instagram.com/artur_leto_" target="_blank" class="dm-pill">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               @artur_leto_
             </a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ ATTN MECHANIC ═══════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="eyebrow" style="justify-content:center;"><span class="dot"></span>механика</div>
-        <h2 class="section-title">
-          Здесь вместо лайков — <em>деньги</em>
-        </h2>
-      </div>
-
-      <div class="attn-grid">
-        <div class="attn-card reveal">
-          <p class="attn-intro">Ты публикуешь фото.<br>Другие пользователи видят его — и вместо того, чтобы нажать ❤️…</p>
-          <div class="attn-vs">
-            <div class="attn-block">
-              <div class="icon">❤️</div>
-              <div class="label">Обычный лайк</div>
-              <div class="earn">Тебе: $0</div>
-            </div>
-            <div class="attn-arrow">→</div>
-            <div class="attn-block pos">
-              <div class="icon em">ATTN</div>
-              <div class="label">Токен внимания</div>
-              <div class="earn">Тебе: +$</div>
-            </div>
-          </div>
-          <div class="attn-note">
-            <b>ATTN</b> = Attention = Внимание.<br>
-            Каждый раз, когда кто-то обращает внимание на твоё фото — ты зарабатываешь.
-          </div>
-        </div>
-
-        <div class="attn-reasons reveal">
-          <h3>Почему люди вкладывают деньги в чужие фото?</h3>
-          <div class="reasons">
-            <div class="reason">
-              <div class="emo">📈</div>
-              <div>
-                <h4>Это инвестиция, а не благотворительность</h4>
-                <p>Поставил деньги на интересное фото → оно стало популярным → ты заработал. Как акции, только быстрее.</p>
-              </div>
-            </div>
-            <div class="reason">
-              <div class="emo">🎯</div>
-              <div>
-                <h4>Стейкер зарабатывает ~70% в месяц</h4>
-                <p>Вложил в хорошее фото — получил прибыль. Доходность — примерно 70% в месяц к сумме, которую ты уже заработал на своих фото. Заработать с одной ставки можно до 100%.</p>
-              </div>
-            </div>
-            <div class="reason">
-              <div class="emo">🤝</div>
-              <div>
-                <h4>Обе стороны выигрывают</h4>
-                <p>Ты получаешь 1% с каждого стейка на твоё фото как автор. Инвестор зарабатывает на твоём посте. Все в любом случае в плюсе.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ ZERO INVESTMENT ═══════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="zero-card reveal">
-        <h2 class="zero-mega">
-          <em>Никаких</em><br>вложений.
-        </h2>
-        <p class="zero-sub">
-          Я хочу это подчеркнуть отдельно. Здесь <b>не нужно покупать стартовый пакет, платить за вход или вкладывать деньги.</b>
-          Тебе предлагают работу — ты фотографируешь, тебе платят. Это всё.
-        </p>
-        <div class="zero-pills">
-          <span class="zero-pill">✓ Вход бесплатный</span>
-          <span class="zero-pill">✓ Ничего покупать не нужно</span>
-          <span class="zero-pill">✓ Это работа, а не вложения</span>
         </div>
       </div>
     </div>
@@ -3283,6 +3392,9 @@
             <div class="growth">↗ растёт со временем</div>
           </div>
         </div>
+        <p class="calc-note">
+          Это <b>средний</b> показатель новичка. Активные пользователи делают <b>$1 000+ в месяц</b> — за счёт частоты съёмки, охвата и партнёрки.
+        </p>
       </div>
 
     </div>
@@ -3604,39 +3716,6 @@
     </div>
   </section>
 
-  <!-- ═══════════════ ABOUT ME ═══════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-photo-wrap reveal">
-          <img src="assets/v2/artur_photo.jpg" alt="Артур Лето — с Бали">
-          <div class="about-badge">📍 Бали · Индонезия</div>
-        </div>
-        <div class="about-text reveal">
-          <div class="eyebrow"><span class="dot"></span>обо мне</div>
-          <h2>Привет, я <em>Артур</em> 👋</h2>
-          <p>
-            Я из России, живу на Бали. Пользуюсь <b>Collective Memories</b> сам с января 2026 —
-            и помогаю друзьям разобраться и подключиться.
-          </p>
-          <p>
-            Пиши мне в Direct — отвечу на <b>любом языке</b>: русский, английский, немного индонезийский.
-            Всё объясню, помогу с установкой, пришлю персональный видео-урок.
-          </p>
-          <div class="about-hint">
-            <b>P.S.</b> В моём Instagram в Highlights есть живые результаты друзей — кто сколько вывел.
-            Всё на русском, но если не говоришь по-русски — визуально всё равно понятно: суммы, скриншоты, чеки.
-            Загляни, если интересно.
-          </div>
-          <a href="https://instagram.com/artur_leto_" target="_blank" class="about-cta">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            @artur_leto_ в Instagram
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ═══════════════ HONEST MOTIVATION ═══════════════ -->
   <section class="section">
     <div class="container">
@@ -3689,12 +3768,13 @@
           Я — Артур. Сам зарабатываю на CM с января 2026. Помогу разобраться, отвечу на все вопросы и доведу до первого вывода. Бесплатно.
         </p>
         <div class="invite">
-          <div class="invite-code">GQP92</div>
+          <button type="button" class="invite-code js-copy" data-copy="GQP92" data-copy-label="Скопировано!" aria-label="Скопировать инвайт-код GQP92">GQP92</button>
           <div class="invite-meta">
             <span>инвайт-код</span>
             <span class="invite-bonus">+1000 ATTN бонус</span>
           </div>
         </div>
+        <div class="invite-hint js-copy-hint">↑ нажми на код, чтобы скопировать</div>
         <div style="position:relative;display:flex;flex-direction:column;gap:14px;align-items:center;">
           <a href="https://instagram.com/artur_leto_" target="_blank" class="about-cta" style="font-size:18px;padding:18px 32px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -3893,6 +3973,70 @@
         }
         typeNext();
       }, START_DELAY);
+    })();
+
+    /* ═══════════════ COPY-TO-CLIPBOARD (купон GQP92) ═══════════════ */
+    (function () {
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+        // Fallback для старых браузеров / http
+        return new Promise(function (resolve, reject) {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus(); ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            ok ? resolve() : reject();
+          } catch (e) { reject(e); }
+        });
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.js-copy');
+        if (!btn) return;
+        var text = btn.getAttribute('data-copy');
+        if (!text) return;
+
+        var origText = btn.dataset.origText || btn.textContent;
+        btn.dataset.origText = origText;
+        var doneLabel = btn.getAttribute('data-copy-label') || 'Скопировано!';
+
+        // Найти ближайшую подсказку (внутри онбоард-карточки или соседний invite-hint)
+        var card = btn.closest('.onboard-card') || btn.parentElement.parentElement;
+        var hint = card ? card.querySelector('.js-copy-hint') : null;
+        var origHint = null;
+        if (hint) {
+          origHint = hint.dataset.origText || hint.textContent;
+          hint.dataset.origText = origHint;
+        }
+
+        copyText(text).then(function () {
+          btn.textContent = doneLabel;
+          btn.classList.add('copied');
+          if (hint) {
+            hint.textContent = '✓ код в буфере обмена';
+            hint.classList.add('copied');
+          }
+          clearTimeout(btn._copyTimer);
+          btn._copyTimer = setTimeout(function () {
+            btn.textContent = origText;
+            btn.classList.remove('copied');
+            if (hint) {
+              hint.textContent = origHint;
+              hint.classList.remove('copied');
+            }
+          }, 1600);
+        }).catch(function () {
+          btn.textContent = 'не удалось — скопируй вручную';
+          setTimeout(function () { btn.textContent = origText; }, 2000);
+        });
+      });
     })();
   </script>
 </body>
