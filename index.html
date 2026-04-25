@@ -371,7 +371,7 @@
     /* ═══════════════ HERO ═══════════════ */
     .hero {
       position: relative;
-      padding: 80px 0 100px;
+      padding: 80px 0 34px;
     }
     .hero-grid {
       display: grid;
@@ -381,7 +381,7 @@
     }
     @media (max-width: 960px) {
       .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-      .hero { padding: 56px 0 80px; }
+      .hero { padding: 56px 0 28px; }
     }
 
     .hero-title {
@@ -1725,19 +1725,53 @@
     .longcopy ul.personas {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px;
+      margin: 0 0 28px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
     .longcopy ul.personas li {
-      font-size: 16px;
-      color: var(--ink);
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(16,185,129,0.06);
-      border: 1px solid rgba(16,185,129,0.15);
+      position: relative;
       margin: 0;
+      padding: 0 14px 14px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(16,185,129,0.06) 0%, rgba(16,185,129,0.02) 100%);
+      border: 1px solid rgba(16,185,129,0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
+    }
+    .longcopy ul.personas li:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16,185,129,0.4);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 0 24px rgba(16,185,129,0.12);
+    }
+    .longcopy ul.personas li img {
+      display: block;
+      width: 100%;
+      max-width: 140px;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+      margin: 4px auto 6px;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.4));
+    }
+    .longcopy ul.personas li span {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+      line-height: 1.3;
+    }
+    @media (max-width: 900px) {
+      .longcopy ul.personas { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      .longcopy ul.personas li img { max-width: 110px; }
+      .longcopy ul.personas li span { font-size: 13px; }
     }
     .longcopy .fit-list {
       counter-reset: fit;
@@ -1835,7 +1869,6 @@
     }
     @media (max-width: 640px) {
       .longcopy { padding: 40px 22px; }
-      .longcopy ul.personas { grid-template-columns: 1fr; }
     }
 
     /* Forward / share block */
@@ -1986,25 +2019,39 @@
     .sp-carousel::-webkit-scrollbar { display: none; }
 
     .sp-card {
-      flex: 0 0 240px;
+      flex: 0 0 auto;
       scroll-snap-align: center;
       background: var(--panel);
       border: 1px solid var(--hairline);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: transform .4s var(--ease), border-color .3s;
+      transition: transform .4s var(--ease), border-color .3s, box-shadow .3s;
       position: relative;
+      cursor: zoom-in;
+      height: 540px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .sp-card:hover { transform: translateY(-4px); border-color: var(--hairline-2); }
+    @media (max-width: 700px) {
+      .sp-card { height: 400px; }
+    }
+    .sp-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16,185,129,0.35);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.45), 0 0 28px rgba(16,185,129,0.12);
+    }
     .sp-card img {
-      width: 100%;
-      aspect-ratio: 9/16;
-      object-fit: cover;
       display: block;
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
       background: var(--bg-soft);
     }
     .sp-card .sp-placeholder {
-      aspect-ratio: 9/16;
+      width: 240px;
+      height: 100%;
       display: grid;
       place-items: center;
       color: var(--muted);
@@ -2013,6 +2060,91 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       background: repeating-linear-gradient(45deg, var(--panel), var(--panel) 10px, var(--panel-2) 10px, var(--panel-2) 20px);
+    }
+    .sp-card .sp-zoom-hint {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(10, 13, 20, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--ink-soft);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    /* ═══════════════ LIGHTBOX ═══════════════ */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(5, 8, 14, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+      animation: lbZoom 0.32s var(--ease);
+    }
+    @keyframes lbZoom {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .lb-close, .lb-prev, .lb-next {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      backdrop-filter: blur(8px);
+    }
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.18); transform: scale(1.05); }
+    .lb-close { top: 24px; right: 24px; }
+    .lb-prev { left: 24px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 24px; top: 50%; transform: translateY(-50%); }
+    .lb-prev:hover, .lb-next:hover { transform: translateY(-50%) scale(1.05); }
+    .lb-counter {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      backdrop-filter: blur(8px);
+    }
+    @media (max-width: 700px) {
+      .lb-prev, .lb-next { width: 40px; height: 40px; }
+      .lb-prev { left: 12px; }
+      .lb-next { right: 12px; }
+      .lb-close { top: 12px; right: 12px; }
     }
     .sp-card .sp-tag {
       position: absolute;
@@ -2414,6 +2546,29 @@
     }
     [x-cloak] { display: none !important; }
 
+    /* ═══════════════ DEV: numbered block markers (удалить позже) ═══════════════ */
+    .dev-block-num {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 9999;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #F472B6, #FB923C);
+      color: #1a0b14;
+      font-family: 'Geist Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      box-shadow: 0 2px 12px rgba(244,114,182,0.4), 0 0 0 1px rgba(0,0,0,0.3);
+      pointer-events: none;
+      letter-spacing: 0;
+    }
+
     /* ═══════════════ FINAL CTA ═══════════════ */
     .cta-final {
       max-width: 780px;
@@ -2631,14 +2786,14 @@
 
         <h3>Кем бы ты ни был</h3>
         <ul class="personas">
-          <li>Студент</li>
-          <li>Мама в декрете</li>
-          <li>Пенсионер</li>
-          <li>Наёмный сотрудник</li>
-          <li>Гид, тревел-блогер</li>
-          <li>Водитель, курьер</li>
-          <li>Фрилансер</li>
-          <li>Путешественник</li>
+          <li><img src="assets/v3/characters/01_student.png" alt="" loading="lazy"><span>Студент</span></li>
+          <li><img src="assets/v3/characters/02_mom.png" alt="" loading="lazy"><span>Мама в декрете</span></li>
+          <li><img src="assets/v3/characters/03_pensioner.png" alt="" loading="lazy"><span>Пенсионер</span></li>
+          <li><img src="assets/v3/characters/04_employee.png" alt="" loading="lazy"><span>Наёмный сотрудник</span></li>
+          <li><img src="assets/v3/characters/05_guide.png" alt="" loading="lazy"><span>Гид, тревел-блогер</span></li>
+          <li><img src="assets/v3/characters/06_courier.png" alt="" loading="lazy"><span>Водитель, курьер</span></li>
+          <li><img src="assets/v3/characters/07_freelancer.png" alt="" loading="lazy"><span>Фрилансер</span></li>
+          <li><img src="assets/v3/characters/08_traveler.png" alt="" loading="lazy"><span>Путешественник</span></li>
         </ul>
         <p>
           …ты можешь получать <b>$100–500 в месяц</b>, делая то, что и так делаешь каждый день — <b>фотографируя жизнь вокруг себя.</b>
@@ -2793,30 +2948,57 @@
         <div class="sp-head reveal">
           <div class="eyebrow" style="justify-content:center;"><span class="dot"></span>доказательства</div>
           <h2>Реальные <em>выводы</em></h2>
-          <p>Скриншоты из моего приложения и кошелька. Не шаблоны, не рендеры — реальные транзакции.</p>
+          <p>Реальные выводы реальных людей. Всё это мои друзья — я просто поделился с ними этим приложением.</p>
         </div>
 
-        <div class="sp-carousel reveal" id="sp-carousel">
-          <!-- PLACEHOLDER: заменить на реальные скрины из landing/withdrawals/*.png -->
-          <div class="sp-card">
-            <span class="sp-tag">17 апр</span>
-            <div class="sp-placeholder">Скрин&nbsp;1</div>
+        <div class="sp-carousel reveal" id="sp-carousel" data-lightbox="proofs">
+          <div class="sp-card" data-src="proofs/proof-01.jpg">
+            <img src="proofs/proof-01.jpg" alt="Скриншот доказательства 1" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
           </div>
-          <div class="sp-card">
-            <span class="sp-tag">20 апр</span>
-            <div class="sp-placeholder">Скрин&nbsp;2</div>
+          <div class="sp-card" data-src="proofs/proof-02.jpg">
+            <img src="proofs/proof-02.jpg" alt="Скриншот доказательства 2" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
           </div>
-          <div class="sp-card">
-            <span class="sp-tag">24 апр</span>
-            <div class="sp-placeholder">Скрин&nbsp;3</div>
+          <div class="sp-card" data-src="proofs/proof-03.jpg">
+            <img src="proofs/proof-03.jpg" alt="Скриншот доказательства 3" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
           </div>
-          <div class="sp-card">
-            <span class="sp-tag">30 апр</span>
-            <div class="sp-placeholder">Скрин&nbsp;4</div>
+          <div class="sp-card" data-src="proofs/proof-04.jpg">
+            <img src="proofs/proof-04.jpg" alt="Скриншот доказательства 4" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
           </div>
-          <div class="sp-card">
-            <span class="sp-tag">мая</span>
-            <div class="sp-placeholder">Скрин&nbsp;5</div>
+          <div class="sp-card" data-src="proofs/proof-05.jpg">
+            <img src="proofs/proof-05.jpg" alt="Скриншот доказательства 5" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
+          </div>
+          <div class="sp-card" data-src="proofs/proof-06.jpg">
+            <img src="proofs/proof-06.jpg" alt="Скриншот доказательства 6" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
+          </div>
+          <div class="sp-card" data-src="proofs/proof-07.jpg">
+            <img src="proofs/proof-07.jpg" alt="Скриншот доказательства 7" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
+          </div>
+          <div class="sp-card" data-src="proofs/proof-08.jpg">
+            <img src="proofs/proof-08.jpg" alt="Скриншот доказательства 8" loading="lazy">
+            <span class="sp-zoom-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
           </div>
         </div>
 
@@ -3567,6 +3749,21 @@
     </div>
   </footer>
 
+  <!-- ═══════════════ LIGHTBOX ═══════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" id="lb-close" aria-label="Закрыть">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lb-prev" id="lb-prev" aria-label="Предыдущий">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <img class="lightbox-img" id="lb-img" alt="">
+    <button class="lb-next" id="lb-next" aria-label="Следующий">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <div class="lb-counter" id="lb-counter">1 / 8</div>
+  </div>
+
   <script>
     // Nav shadow on scroll
     window.addEventListener('scroll', () => {
@@ -3607,6 +3804,64 @@
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-target]').forEach(el => counter.observe(el));
+
+    // ═══════════════ LIGHTBOX ═══════════════
+    (function() {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      const lbCounter = document.getElementById('lb-counter');
+      const cards = [...document.querySelectorAll('.sp-card[data-src]')];
+      if (!lb || !cards.length) return;
+      let idx = 0;
+      function show(i) {
+        idx = (i + cards.length) % cards.length;
+        lbImg.src = cards[idx].dataset.src;
+        lbCounter.textContent = `${idx + 1} / ${cards.length}`;
+      }
+      function open(i) {
+        show(i);
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      cards.forEach((c, i) => c.addEventListener('click', () => open(i)));
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
+      document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
+      lb.addEventListener('click', e => { if (e.target === lb) close(); });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(idx - 1);
+        if (e.key === 'ArrowRight') show(idx + 1);
+      });
+      // Touch swipe inside lightbox
+      let tx = 0;
+      lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 50) show(dx > 0 ? idx - 1 : idx + 1);
+      }, { passive: true });
+    })();
+
+    // ═══════════════ DEV: numbered block markers ═══════════════
+    // Удалить весь этот блок (включая .dev-block-num стили выше) когда вёрстка финализирована
+    (function() {
+      const blocks = document.querySelectorAll('body > section, body > .motiv-banner, body > nav, body > footer');
+      blocks.forEach((el, i) => {
+        const cs = getComputedStyle(el);
+        if (cs.position === 'static') el.style.position = 'relative';
+        const badge = document.createElement('div');
+        badge.className = 'dev-block-num';
+        badge.textContent = String(i + 1);
+        el.prepend(badge);
+      });
+    })();
 
     // Hero eyebrow typewriter
     (function() {
