@@ -1695,6 +1695,53 @@
       transition: color .2s ease, opacity .2s ease;
     }
     .copy-hint.copied { color: var(--emerald); opacity: 1; }
+    /* ═══════════════ NEW COMBINED STEPS ═══════════════ */
+    .new-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .new-step-card {
+      background: linear-gradient(160deg, var(--panel) 0%, var(--bg-soft) 100%);
+      border: 1px solid var(--hairline-2);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px 32px;
+      position: relative;
+    }
+    .new-step-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 24px; right: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+    }
+    .new-step-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
+    }
+    .new-step-card p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin: 0 0 12px;
+    }
+    .new-step-card p:last-child { margin-bottom: 0; }
+    .new-step-card b { color: var(--ink); }
+    .new-step-card em { font-style: italic; color: var(--ink-soft); }
+    .new-step-warning {
+      padding: 10px 14px;
+      background: rgba(245,181,71,0.08);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 14px !important;
+      color: var(--ink-soft) !important;
+    }
+    @media (max-width: 900px) { .new-steps-grid { grid-template-columns: 1fr; gap: 16px; } }
+
     .coupon-instruction {
       margin-top: 14px;
       padding: 14px 16px;
@@ -3570,6 +3617,45 @@
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ NEW COMBINED HOW IT WORKS + ONBOARDING ═══════════════ -->
+  <section class="section" id="how-new">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" style="justify-content:center;"><span class="dot"></span>регистрация</div>
+        <h2 class="section-title">Начать — <em>супер&nbsp;просто</em></h2>
+        <p class="section-sub">4 шага. 5 минут. Никаких вложений, карт, проверок.</p>
+      </div>
+
+      <div class="new-steps-grid reveal">
+
+        <div class="new-step-card">
+          <div class="onboard-num">1</div>
+          <h3>Скачай и зарегистрируйся</h3>
+          <p>Приложение бесплатное, доступно на iOS и Android. <b>Ссылку пришлю в личку.</b></p>
+          <p>Регистрация займёт 2 минуты — нужен только телефон и любой email. Поставь своё имя и любую фотку на аватар.</p>
+          <p>Активируй купон <b>GQP92</b> — получишь первые токены ATTN сразу. Без карт, без KYC, без документов.</p>
+        </div>
+
+        <div class="new-step-card">
+          <div class="onboard-num">2</div>
+          <h3>Фотографируй всё вокруг</h3>
+          <p>Щёлк — загрузил. Щёлк — загрузил. Так 30–100 раз в день. Не нужны текст, монтаж, музыка. Просто нажми кнопку.</p>
+          <p>Представь что ты репортёр — ищи кадры своей жизни. Ты удивишься, как много всего вокруг происходит, когда начнёшь замечать. <em>Кто замечает жизнь — у того жизнь замечательная 😜</em></p>
+          <p class="new-step-warning">⚠️ Есть список того, чего фотографировать нельзя — это важно прочитать до первой публикации. <b>Отправлю тебе его в лс.</b></p>
+        </div>
+
+        <div class="new-step-card">
+          <div class="onboard-num">3</div>
+          <h3>Получай деньги</h3>
+          <p>Люди ставят реальные деньги на твои фото. Ты зарабатываешь. Выводишь в USDC — конвертируешь — тратишь.</p>
+          <p>Первый вывод возможен сразу. Я рекомендую накопить первые <b>20$–50$</b> — это займёт 1–7 дней. Все последующие выводы — раз в месяц. Как зарплата: накопил — вывел.</p>
+          <p>Вывод в криптовалюте USDC на любой крипто-кошелёк или биржу. <b>Могу порекомендовать проверенные обменники</b> — обменять на рубли, тенге, гривны, евро прямо на карту максимально просто.</p>
+        </div>
+
       </div>
     </div>
   </section>
