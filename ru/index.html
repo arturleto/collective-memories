@@ -1695,6 +1695,25 @@
       transition: color .2s ease, opacity .2s ease;
     }
     .copy-hint.copied { color: var(--emerald); opacity: 1; }
+    .coupon-instruction {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.18);
+      border-radius: var(--radius);
+    }
+    .coupon-instruction p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin: 0 0 10px;
+    }
+    .coupon-reward {
+      margin-top: 10px !important;
+      font-size: 13px !important;
+      color: var(--emerald) !important;
+      font-weight: 600;
+    }
     .onboard-card .dm-pill {
       display: inline-flex;
       align-items: center;
@@ -3522,17 +3541,22 @@
 
           <div class="onboard-card reveal">
             <div class="onboard-num">2</div>
-            <h3>Зарегистрируйся по email</h3>
-            <p>Любой почтовый адрес. Без карт, без KYC, без документов.</p>
+            <h3>Зарегистрируйся и заполни профиль</h3>
+            <p>Любой email. Без карт, без KYC, без документов.</p>
+            <p style="margin-top:10px;">Поставь своё имя и любую фотку на аватар.</p>
           </div>
 
           <div class="onboard-card reveal" style="position:relative;overflow:visible;">
             <img src="../assets/v2/clipart_gift.png" alt="" style="position:absolute;top:-32px;right:-18px;width:90px;height:90px;pointer-events:none;filter:drop-shadow(0 8px 20px rgba(244,114,182,0.4));animation:float-y 6s ease-in-out infinite;z-index:2;">
             <div class="onboard-num">3</div>
-            <h3>Имя, аватар и купон</h3>
-            <p>Поставь своё имя, любую фотку на аватар. Введи купон:</p>
-            <button type="button" class="promo-pill js-copy" data-copy="GQP92" data-copy-label="Скопировано!" aria-label="Скопировать купон GQP92">GQP92</button>
-            <span class="copy-hint js-copy-hint">↑ нажми, чтобы скопировать</span>
+            <h3>Введи купон</h3>
+            <p>Купон можно ввести прямо при регистрации. Если не успел — вот инструкция:</p>
+            <div class="coupon-instruction">
+              <p>Зайди в <b>PPL → Favourite</b><br>Там увидишь пустой <b>+</b> — нажми и введи код:</p>
+              <button type="button" class="promo-pill js-copy" data-copy="GQP92" data-copy-label="Скопировано!" aria-label="Скопировать купон GQP92">GQP92</button>
+              <span class="copy-hint js-copy-hint">👆 тапни, чтобы скопировать</span>
+              <p class="coupon-reward">Получишь сразу первые токены ATTN 🎁</p>
+            </div>
           </div>
 
           <div class="onboard-card reveal">
